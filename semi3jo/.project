@@ -3,6 +3,12 @@
 	<name>semi3jo</name>
 	<comment></comment>
 	<projects>
+		<project>standard</project>
+		<project>jstl</project>
+		<project>ojdbc6</project>
+		<project>mysql-connector-java-5.1.33-bin</project>
+		<project>servlet-api</project>
+		<project>cos</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
