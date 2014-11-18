@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>WebSocket 04</title>
+<script type="text/javascript">
+	var websocket = new WebSocket("ws://192.168.10.6:8080/semi3jo/chatroomServerEndpoint");
+	websocket.onmessage = function processMessage(message){
+		var jsonData = JSON.parse(message.data);
+		if(jsonData.message != null) messagesTextArea.value += jsonData.message + "\n";
+		if(jsonData.users != null){
+			usersTextArea.value="";
+			var i=0;
+			while(i<jsonData.users.length) usersTextArea.value += jsonData.users[i++] + "\n";
+		}
+	}
+	function sendMessage(){
+		websocket.send(messageText.value);
+		messageText.value = "";
+	}
+	window.onbeforeunload = function(){
+		websocket.onclose = function(){};
+		websocket.close();
+	};
+</script>
+</head>
+<body>
+	<textarea cols="50" id="messagesTextArea" rows="10"></textarea>
+	<textarea  id="usersTextArea" rows="10" cols="10" readonly="readonly"></textarea><br/>
+	<input type="text" id="messageText" size="50" />
+	<input type="button" value="send" onclick="sendMessage()"/>
+</body>
+</html>
